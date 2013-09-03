@@ -98,11 +98,11 @@ game.start();
 console.log("Random 5x10 five turns: \n");
 game.init(5,5,10);
 game.start();
-
+*/
 console.log("Random 20x20 five turns: \n");
 game.init(5,20,20);
 game.start();
-*/
+
 console.log("Oscillator Beacon 6x6 three turns: \n");
 game.init(3);
 game.board = [
