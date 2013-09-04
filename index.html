@@ -1,0 +1,24 @@
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="style.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" language="Javascript"></script>
+<script src="gameOfLife.js"></script>
+</head>
+<body>
+  <h1>Game Of Life</h1>
+  <h6>Instructions: Click <strong>randomize</strong> to generate random <em>live</em> cells. Click <strong>start</strong> to begin the life cycle. Click <strong>stop</strong> to reset everything.</h6>
+  <h6>Rules:
+  <ul>
+    <li>Any live cell with fewer than two live neighbours dies, as if caused by under-population.</li>
+    <li>Any live cell with two or three live neighbours lives on to the next generation.</li>
+    <li>Any live cell with more than three live neighbours dies, as if by overcrowding.</li>
+    <li>Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.</li>
+  </ul>  
+  </h6>
+	<table id='main'></table>
+	<br />
+	<div id="start" class="button">Start</div>
+	<div id="stop" class="button">Stop</div>
+	<div id="randomize" class="button">Randomize</div>
+</body>
+</html>
