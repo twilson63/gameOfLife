@@ -12,7 +12,8 @@ $( document ).ready(function() {
 	$("#randomize").click(placeRandomCells);
 	$("#start").click(playGame);
 	$("#stop").click(function() { location.reload(); });
-	
+	$("#blinker").click(placeBlinkerCells);
+	$("#toad").click(placeToadCells);
 });
 
 function initialiseGame() {
@@ -39,6 +40,30 @@ function placeRandomCells() {
 			}
 		}
 	}
+}
+
+function placeBlinkerCells() {
+    var cell = getCell(7,7);
+    cell.addClass("alive");
+    cell = getCell(6,7);
+    cell.addClass("alive");
+    cell = getCell(8,7);
+    cell.addClass("alive");
+}
+
+function placeToadCells() {
+    var cell = getCell(8,7);
+    cell.addClass("alive");
+    cell = getCell(7,7);
+    cell.addClass("alive");
+    cell = getCell(9,7);
+    cell.addClass("alive");
+    cell = getCell(8,8);
+    cell.addClass("alive");
+    cell = getCell(7,8);
+    cell.addClass("alive");
+    cell = getCell(6,8);
+    cell.addClass("alive");
 }
 
 function playGame() {
