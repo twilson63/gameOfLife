@@ -2,13 +2,14 @@
 <head>
   <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="style.css" />
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" language="Javascript"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" language="Javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
 <script src="gameOfLife.js"></script>
 
 </head>
 <body>
   <div class="hero-unit"><h1>Game Of Life</h1></div>
-  <div class="container">
+  <div class="container" style="margin-bottom: 100px;">
     <div class="alert alert-info">
       <h6>Instructions: Click <strong>randomize</strong> to generate random <em>live</em> cells. Click <strong>start</strong> to begin the life cycle. Click <strong>stop</strong> to reset everything.</h6>
       <h6>Rules:</h6>
@@ -20,7 +21,7 @@
       </ul>
     </div>
     <div class="row offset2">
-      <table id='main'></table>
+      <div id="board"></div>
       <br />
       <button id="start" class="btn btn-success">Start</button>
       <button id="stop" class="btn btn-danger">Stop</button>

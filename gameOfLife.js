@@ -1,124 +1,88 @@
 var dimension = 15;
 var chanceOfLiveCell = 0.5;
-var table;
-var cell;
-
 $( document ).ready(function() {
-    table = $("#main");
-  initialiseGame();
-  cells = table.find("td");
-  //placeRandomCells();
-  //playGame();
+  initGame();
   $("#randomize").click(placeRandomCells);
-  $("#start").click(playGame);
+  $("#start").click(nextTurn);
   $("#stop").click(function() { location.reload(); });
   $("#blinker").click(placeBlinkerCells);
   $("#toad").click(placeToadCells);
 });
 
-function initialiseGame() {
-  var trHtml = [];
-  for (var y = 0; y < dimension; ++y) {
-  trHtml.push("<tr>");
-    for (var x = 0; x < dimension; ++x) {
-      trHtml.push("<td>&nbsp;</td>");
-    }
-    trHtml.push("</tr>");
-  }
-  trHtml = trHtml.join("");
-  table.append($(trHtml));
+function initGame() {
+  var tbl = $('<table id="main"></table>');
+  _.times(dimension, function(y) {
+    var tr = $('<tr>');
+    _.times(dimension, function(x) {
+      tr.append('<td id="cell-' + [x,y].join('-') + '">&nbsp;</td>');
+    });
+    tbl.append(tr);
+  });
+  $('#board').append(tbl);
 }
-
+// sample seed generators
 function placeRandomCells() {
-  for (var y = 0; y < dimension; ++y) {
-    for (var x = 0; x < dimension; ++x) {
+  _.times(dimension, function(y) {
+    _.times(dimension, function(x) {
       var cell = getCell(x,y);
       if (Math.random() > chanceOfLiveCell) {
         cell.addClass("alive");
       } else {
         cell.removeClass("alive");
       }
-    }
-  }
-}
-
-function placeBlinkerCells() {
-    var cell = getCell(7,7);
-    cell.addClass("alive");
-    cell = getCell(6,7);
-    cell.addClass("alive");
-    cell = getCell(8,7);
-    cell.addClass("alive");
-}
-
-function placeToadCells() {
-    var cell = getCell(8,7);
-    cell.addClass("alive");
-    cell = getCell(7,7);
-    cell.addClass("alive");
-    cell = getCell(9,7);
-    cell.addClass("alive");
-    cell = getCell(8,8);
-    cell.addClass("alive");
-    cell = getCell(7,8);
-    cell.addClass("alive");
-    cell = getCell(6,8);
-    cell.addClass("alive");
-}
-
-function playGame() {
-  prepareNextGeneration();
-  renderNextGeneration();
-  setTimeout('playGame()', 200);
-}
-
-function prepareNextGeneration() {
-  for (var y = 0; y < dimension; ++y) {
-    for (var x = 0; x < dimension; ++x) {
-      var cell = getCell(x,y);
-      var neighbors = getLiveNeighborCount(x,y);
-      cell.attr("isalive", "false");
-      if (isCellAlive(x,y)) {
-        if (neighbors === 2 || neighbors === 3) {
-          cell.attr("isalive", "true");
-        }
-      } else if (neighbors === 3) {
-        cell.attr("isalive", "true");
-      }
-    }
-  }
-}
-
-function renderNextGeneration() {
-  cells.each(function () {
-    var cell = $(this);
-    cell.removeClass("alive");
-      if (cell.attr("isalive") === "true") { cell.addClass("alive"); }
-    cell.removeAttr("isalive");
+    });
   });
 }
 
-function getLiveNeighborCount(x,y) {
+function placeBlinkerCells() {
+  _([[7,7],[6,7],[8,7]])
+    .each(function(pos) {
+      getCell.apply(null, pos).addClass("alive");
+    });
+}
+
+function placeToadCells() {
+  _([[8,7],[7,7],[9,7],[8,8],[7,8],[6,8]])
+    .each(function(pos) {
+      getCell.apply(null, pos).addClass("alive");
+    });
+}
+
+// game of life code...
+function nextTurn() {
+  _.times(dimension, function(y) {
+    _.times(dimension, function(x) {
+      var cell = getCell(x,y);
+      var neighbors = getNeighbors(x,y);
+      if (cell.hasClass('alive') && shouldDie(neighbors)) {
+        cell.removeClass('alive');
+      } else if (canReproduce(neighbors)) {
+        cell.addClass('alive');
+      }
+    });
+  });
+  setTimeout(nextTurn, 200);
+}
+
+function shouldDie(neighbors) {
+  return neighbors < 2 || neighbors > 3;
+}
+
+function canReproduce(neighbors) {
+  return neighbors === 3;
+}
+
+function getNeighbors(x,y) {
   var count = 0;
-  if (isCellAlive(x-1, y-1)) {count++;}
-  if (isCellAlive(x, y-1)) {count++;}
-  if (isCellAlive(x+1, y-1)) {count++;}
-  if (isCellAlive(x-1, y)) {count++;}
-  if (isCellAlive(x+1, y)) {count++;}
-  if (isCellAlive(x-1, y+1)) {count++;}
-  if (isCellAlive(x, y+1)) {count++;}
-  if (isCellAlive(x+1, y+1)) {count++;}
+  _.each([
+     [x - 1,y - 1], [x,y - 1] ,[x + 1,y - 1],
+     [x - 1, y],              ,[1, 0],
+     [x - 1, y + 1],[x,y + 1] ,[x + 1, y + 1]], function(cell) {
+    if (getCell.apply(null, cell).hasClass("alive")) { count++; }
+  });
   return count;
 }
 
-function isCellAlive(x,y) {
-  return getCell(x,y).attr("class") === "alive";
-}
-
 function getCell(x,y) {
-  if (x >= dimension) {x = 0;}
-  if (y >= dimension) {y = 0;}
-  if (x < 0) {x = dimension - 1;}
-  if (y < 0) {y = dimension - 1;}
-  return $(cells[y * dimension + x]);
+  return $('#cell-' + [x,y].join('-'));
 }
