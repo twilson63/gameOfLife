@@ -1,26 +1,34 @@
 <html>
 <head>
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="style.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" language="Javascript"></script>
 <script src="gameOfLife.js"></script>
+
 </head>
 <body>
-  <h1>Game Of Life</h1>
-  <h6>Instructions: Click <strong>randomize</strong> to generate random <em>live</em> cells. Click <strong>start</strong> to begin the life cycle. Click <strong>stop</strong> to reset everything.</h6>
-  <h6>Rules:
-  <ul>
-    <li>Any live cell with fewer than two live neighbors dies, as if caused by under-population.</li>
-    <li>Any live cell with two or three live neighbors lives on to the next generation.</li>
-    <li>Any live cell with more than three live neighbors dies, as if by overcrowding.</li>
-    <li>Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.</li>
-  </ul>  
-  </h6>
-	<table id='main'></table>
-	<br />
-	<div id="start" class="button">Start</div>
-	<div id="stop" class="button">Stop</div>
-	<div id="randomize" class="button">Randomize</div>
-	<div id="blinker" class="button">Blinker</div>
-	<div id="toad" class="button">Toad</div>
+  <div class="hero-unit"><h1>Game Of Life</h1></div>
+  <div class="container">
+    <div class="alert alert-info">
+      <h6>Instructions: Click <strong>randomize</strong> to generate random <em>live</em> cells. Click <strong>start</strong> to begin the life cycle. Click <strong>stop</strong> to reset everything.</h6>
+      <h6>Rules:</h6>
+      <ul>
+        <li>Any live cell with fewer than two live neighbors dies, as if caused by under-population.</li>
+        <li>Any live cell with two or three live neighbors lives on to the next generation.</li>
+        <li>Any live cell with more than three live neighbors dies, as if by overcrowding.</li>
+        <li>Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.</li>
+      </ul>
+    </div>
+    <div class="row offset2">
+      <table id='main'></table>
+      <br />
+      <button id="start" class="btn btn-success">Start</button>
+      <button id="stop" class="btn btn-danger">Stop</button>
+      <button id="randomize" class="btn btn-primary">Randomize</button>
+      <button id="blinker" class="btn btn-info">Blinker</button>
+      <button id="toad" class="btn btn-warning">Toad</button>
+    </div>      
+  </div>
+
 </body>
 </html>

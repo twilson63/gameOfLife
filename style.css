@@ -1,27 +1,5 @@
-td 	{
-		border: solid 1px #000000;
-		width: 20px;
-	}
-td.alive { background-color: green; }
-
-.button {
+td  {
     border: solid 1px #000000;
-    width: 70px;
-    height: 15px;
-    text-align: center;
-    font-family: verdana;
-    font-size: 1em;
-    display: inline;
-}
-
-#start {
-    background-color: green;
-}
-
-#stop {
-    background-color: red;
-}
-
-#randomize {
-    background-color: yellow;
-}
+    width: 20px;
+  }
+td.alive { background-color: green; }
